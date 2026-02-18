@@ -1,0 +1,21 @@
+{% extends "tasks/baze.html" %}
+
+{%  block title %} Добавим задачу {% endblock %}
+
+{%  block body %}
+    <h1>Создаем задчу!</h1>
+    <form action="/task" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+
+            <div class="style-form">
+                {{ field.label_tag }}
+                {{ field.errors }}
+                {{ field }}
+            </div>
+
+        {% endfor %}
+        <button type="submit">Сохранить</button>
+        <button type="reset">Сбросить</button>
+    </form>
+{%  endblock %}

@@ -1,0 +1,34 @@
+{% extends "tasks/baze.html"%}
+
+{%  block title %} Главная страница {% endblock %}
+
+{%  block body %}
+
+    <h1>Наш todo-list</h1>
+<ul>
+    {% for own in todo %}
+        <li>
+            <b>Название:</b> {{own.name}} - {{own.date}} <br>
+            <b>Описание:</b> {{own.description}} <br>
+            <b>Status:</b> {%  if own.status %} 
+            Готово
+            {% else %}
+            Не готово
+            {% endif %}
+            <a href="{% url 'change_link' own.id %}">изменить статус</a>
+            <br>
+            <a href="{% url 'delete_task' own.id %}">удалить задачу</a>
+            <br><br>
+        </li>
+    {% endfor  %}
+</ul>
+    <form action="/task/add-new">
+
+        <div class="buttons"> 
+        <button type="submit">Add new</button>
+
+        <a href="{% url 'reload_task' %}">Reload</a>
+        </div>
+
+    </form>
+{% endblock %}
