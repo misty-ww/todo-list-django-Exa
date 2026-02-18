@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
-from .models import Task
+from .models import Task,Category
 from .forms import tasksForm
 from django.shortcuts import get_object_or_404
 
@@ -11,8 +11,11 @@ def main(request):
         form = tasksForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
+            category_code = data['category']
+            category_obj = Category.objects.get(name = category_code)
             new = Task(name=data['name'],
-                        description = data['desk'])
+                        description = data['desk'],
+                        category = category_obj)
             new.save()
     else:
         form = tasksForm() 

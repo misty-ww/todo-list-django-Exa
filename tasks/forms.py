@@ -1,6 +1,16 @@
 from django import forms
 
 class tasksForm(forms.Form):
+
+    work = "wk"
+    learn = "ln"
+    home = "hm"
+    category_ = [
+        (work,'Работа'),
+        (learn,'Учеба'),
+        (home,'Дом'),
+    ]
+
     name = forms.CharField(max_length=100,
                            label='Назваание',
                            min_length=1,
@@ -19,4 +29,5 @@ class tasksForm(forms.Form):
         'rows':2,
         'cols':20
     }))
-    category = forms.CharField(label='Категория')
+    category = forms.CharField(label='Категория',
+                               widget=forms.Select(choices=category_))
