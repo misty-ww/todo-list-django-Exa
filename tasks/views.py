@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
-from .models import tasks
+from .models import Task
 from .forms import tasksForm
 from django.shortcuts import get_object_or_404
 
@@ -11,12 +11,12 @@ def main(request):
         form = tasksForm(request.POST)
         if form.is_valid():
             data = form.cleaned_data
-            new = tasks(name=data['name'],
+            new = Task(name=data['name'],
                         description = data['desk'])
             new.save()
     else:
         form = tasksForm() 
-    baze = tasks.objects.all
+    baze = Task.objects.all
     return render(request,
                   "tasks/main_page.html",{
                       "todo":baze
@@ -32,7 +32,7 @@ def add_task(request):
 
 
 def change_status(request,id_task :int):
-    task = get_object_or_404(tasks,id=id_task)
+    task = get_object_or_404(Task,id=id_task)
     if task.status:
         task.status = False
         task.save()
@@ -48,7 +48,7 @@ def reload_task(request):
 
 
 def delete_task(request,id_delete: int):
-    task = get_object_or_404(tasks, id=id_delete)
+    task = get_object_or_404(Task, id=id_delete)
     if task:
         task.delete()
     return HttpResponseRedirect('/task')

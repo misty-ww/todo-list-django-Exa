@@ -2,19 +2,26 @@ from django.db import models
 
 
 class Category(models.Model):
-    work = "Работа"
-    learn = "Учеба"
-    home = "Дом"
+    work = "wk"
+    learn = "ln"
+    home = "hm"
     category_ = [
-        ('wk',work),
-        ('ln',learn),
-        ('hm',home),
+        (work,'Работа'),
+        (learn,'Учеба'),
+        (home,'Дом'),
     ]
 
     name = models.CharField(max_length=2,
                           choices=category_,
-                          default='wk',)
-class tasks(models.Model):
+                          default=home,)
+    
+    def __str__(self):
+        for t in self.category_:
+            if t[0] == self.name:
+                return t[1]
+        return f'{self.name}'
+    
+class Task(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     status = models.BooleanField(default=False,

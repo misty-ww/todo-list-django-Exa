@@ -19,4 +19,4 @@ class tasksForm(forms.Form):
         'rows':2,
         'cols':20
     }))
-    category = forms.CharField()
+    category = forms.CharField(label='Категория')
