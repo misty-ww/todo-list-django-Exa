@@ -3,6 +3,6 @@ from .models import tasks
 
 @admin.register(tasks)
 class tasksAdmin(admin.ModelAdmin):
-    list_display=['name','description','status','date']
-    list_editable = ['description','status',]
+    list_display=['name','description','status','date','category']
+    list_editable = ['description','status','category']
     
